@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../stylesheets/App.css';
-import '../stylesheets/bootstrap.min.css';
 import UserCard from './UserCard';
 import AppHeader from './AppHeader';
 
