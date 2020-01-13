@@ -9,7 +9,7 @@ import User from './components/User';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/">
     <React.Fragment>
       <Route exact path="/" component={UserList} />
       <Route path="/user/:id" component={User} />
