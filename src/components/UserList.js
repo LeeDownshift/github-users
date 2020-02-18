@@ -1,62 +1,57 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import fetchUsers from '../redux/dispatchers/usersDispatcher';
 import AppHeader from './AppHeader';
 import List from './List';
-import SearchForm from './SearchForm';
+// import SearchForm from './SearchForm';
 
-class UserList extends Component {
-  state = {
-    allUsers: [],
-    searchTerm: '',
-    filteredUsers: [],
+class UsersList extends Component {
+  constructor(props) {
+    super(props);
+    this.shouldComponentRender = this.shouldComponentRender.bind(this);
   }
 
   componentDidMount() {
-    this.fetchUsers().then(users => this.setState({allUsers: users, filteredUsers: users}));
-  }
+    this.props.fetchUsers();
+  } 
 
-  fetchUsers = () => {
-    const usersUrl = 'https://api.github.com/users';
-    return fetch(usersUrl)
-      .then(response => response.json())
-      .catch((err) => console.error('There was a problem fetching Users data: ', err) );
-  }
-
-  handleKeyPress = (event) => {
-    this.setState({searchTerm: event.target.value});
-  }
-
-  handleClick = (event) => {
-    event.preventDefault();
-    const filtered = this.state.allUsers.filter((user) => {
-      return user.login.includes(this.state.searchTerm);
-    });
-
-    this.setState({filteredUsers: filtered});
-  }
-
-  handleClear = (event) => {
-    event.preventDefault();
-    this.setState({searchTerm: ''});
-    this.setState({filteredUsers: this.state.allUsers});
+  shouldComponentRender() {
+    const { pending } = this.props;
+    if (pending !== false) return false;
+    return true;
   }
 
   render() {
-    const { filteredUsers, searchTerm } = this.state;
+    const { users, error } = this.props;
+
     return (
       <div className="App">
         <AppHeader />
         <main className="container container-fluid mt-5">
-          <SearchForm 
+          {error && <span>{error}</span>}
+          {/* <SearchForm 
             searchTerm={searchTerm} 
             handleKeyPress={this.handleKeyPress}
             handleClick={this.handleClick}
             handleClear={this.handleClear}
-          />
-          <List users={filteredUsers} />
+          /> */}
+          {!this.shouldComponentRender() ? <div>Loading...</div> : <List users={users} />}
         </main>
       </div>
     );
   }
 }
 
-export default UserList;
+const mapStateToProps = (state) => ({
+  error: state.users.error,
+  users: state.users.users,
+  pending: state.users.pending,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchUsers }, dispatch);
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(UsersList);
