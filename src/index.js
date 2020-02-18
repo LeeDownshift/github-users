@@ -1,20 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import './stylesheets/App.css';
 import './stylesheets/index.css';
 import './stylesheets/bootstrap.min.css';
 import UserList from './components/UserList';
 import User from './components/User';
-import * as serviceWorker from './serviceWorker';
+import configureStore from './redux/configureStore';
 
-ReactDOM.render(
-  <BrowserRouter basename="/">
-    <React.Fragment>
-      <Route exact path="/" component={UserList} />
-      <Route path="/user/:id" component={User} />
-    </React.Fragment>
-  </BrowserRouter>,
-  document.getElementById('root')
+const store = configureStore();
+const rootElement = document.getElementById('app');
+
+render(
+  <Provider store={store}>
+    <Router basename="/">
+      <Fragment>
+        <Route exact path="/" component={UserList} />
+        <Route path="/user/:id" component={User} />
+      </Fragment>
+    </Router>
+  </Provider>,
+  rootElement
 );
-serviceWorker.unregister();
