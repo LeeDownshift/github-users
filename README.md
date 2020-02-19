@@ -8,7 +8,7 @@ To run the application locally:
 1. Clone this repository.
 2. `cd` into the root directory of the application.
 3. run `npm install`
-4. run `npm start` and then go to `http://localhost:3000` in your browser.
+4. run `npm start` and then go to `http://localhost:8080` in your browser.
 
 Or if you would like to see a running version of the application you can do so here: [https://quiet-reef-28955.herokuapp.com/](https://quiet-reef-28955.herokuapp.com/)
 
