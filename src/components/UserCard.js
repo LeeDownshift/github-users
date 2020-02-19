@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card } from 'react-bootstrap';
 
 function UserCard({user}) {
   return(
-    <div className="col-sm-12 col-md-3 mb-4">
-      <div className="card">
-        <img className="card-img-top" src={user.avatar_url} alt={user.login} />
-        <div className="card-body">
-          <h5 className="card-title">{user.login}</h5>
-          <a href={`/user/${user.login}`} className="btn btn-primary">View</a>
-        </div>
-      </div>
-    </div>
+    <Card style={{ width: '19rem' }}>
+      <Card.Img variant="top" src={user.avatar_url} alt={user.login} />
+      <Card.Body>
+        <Card.Title>{user.login}</Card.Title>
+        <Card.Link href={`/user/${user.login}`}>View</Card.Link>
+      </Card.Body>
+    </Card>
   );
 } 
 

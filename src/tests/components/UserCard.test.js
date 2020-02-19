@@ -1,48 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import UserCard from '../../components/UserCard';
+import userStubs from '../stubs/userDataStub';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const user = {
-  login: 'LeeDownshift',
-  id: 36741,
-  avatar_url: "https://avatars0.githubusercontent.com/u/36741?v=4",
-}
-
 describe('UserCard', () => {
-  it('renders without crashing', () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<UserCard user={user} />, div);
-  });
-
+  const user = userStubs[0];
   let wrapper;
 
   beforeAll(() => {
-    wrapper = shallow(<UserCard user={user} />);
+    wrapper = mount(<UserCard user={user} />);
   });
 
-  describe('image', () => {
-    let cardImage;
-    
-    beforeAll(() => {
-      cardImage = wrapper.find('.card-img-top').props();
-    });
-    
-    it('should display an avatar', () => {;
-      expect(cardImage.src).toBe(user.avatar_url);
-    });
-
-    it('should have alt tag text', () => {
-      expect(cardImage.alt).toBe(user.login);
-    })
-  });
-
-  describe('title', () => {
-    it('should have the users name and login', () => {
-      expect(wrapper.find('.card-title').text()).toBe(user.login);
-    });
+  it('should render a UserCard', () => {
+    expect(wrapper.find('.card')).toBeTruthy;
+    expect(wrapper.find('.card-image-top'));
+    expect(wrapper.find('img').props().src).toEqual(user.avatar_url);
+    expect(wrapper.find('.h5').props().children).toEqual(user.login);
+    expect(wrapper.find('.card-link').props().href).toEqual(`/users/${user.login}`);
+    expect(wrapper.find('.card-link').props().children).toEqual('View')
   });
 });
