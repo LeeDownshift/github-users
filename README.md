@@ -17,7 +17,7 @@ There are some tests in this project but not as many as I would have liked due t
 With regards to the activity stream, for the moment only a few of the 40+ Event Types have been covered, but can be extended to cover more with more time.
 
 
-=====================================
+=====================================  
 TODO: 
 
 * Add Search functionality back in
