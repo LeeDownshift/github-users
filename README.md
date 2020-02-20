@@ -15,3 +15,11 @@ Or if you would like to see a running version of the application you can do so h
 There are some tests in this project but not as many as I would have liked due to time constraints, to run these run `npm run test` in your terminal window.
 
 With regards to the activity stream, for the moment only a few of the 40+ Event Types have been covered, but can be extended to cover more with more time.
+
+
+=====================================
+TODO: 
+
+* Add Search functionality back in
+* Update components for Single user so that they use react-bootstrap
+* Setup auth for API calls so that it doesn't hit the API's limits
