@@ -6,28 +6,21 @@ import userStubs from '../stubs/userDataStub';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const users = {
+const mockFetchUsers = jest.fn();
+const userProps = {
   error: null,
   users: [],
   pending: false,
+  fetchUsers: mockFetchUsers,
 };
 
-const mockFetchUsers = jest.fn();
-
-let wrapper;
-let store;
-
 describe('UserList component', () => {
+  let wrapper;
+
   describe('When Pending is true',() =>{    
     beforeAll(() => {
-      wrapper = mount(
-        <UsersList 
-          fetchUsers={mockFetchUsers} 
-          pending={true} 
-          users={[]} 
-          error={null}
-        />
-      );
+      userProps.pending = true;
+      wrapper = mount(<UsersList {...userProps} />);
     });
 
     it('should display the loading spinner', () => {
@@ -46,44 +39,32 @@ describe('UserList component', () => {
 
   describe('When Pending is false and there are no users returned',() =>{    
     beforeAll(() => {
-      wrapper = mount(
-        <UsersList 
-          fetchUsers={mockFetchUsers} 
-          pending={false} 
-          users={[]} 
-          error={null}
-        />
-      );
+      userProps.pending = false;
+      wrapper = mount(<UsersList {...userProps} />);
     });
 
     it('should not display the loading spinner', () => {
-      expect(wrapper.find('.spinner-grow')).toBeFalsey;;
+      expect(wrapper.find('.spinner-grow')).toBeFalsey;
     });
 
     it('should not display a list of users', () => {
       expect(wrapper.find('.card')).toBeFalsey;
     });
 
-    it('should not display an error message', () => {
+    it('should display an error message', () => {
       expect(wrapper.find('.alert')).toBeTruthy;
-      expect(wrapper.find('.alert').text()).toEqual('There are no results for this term, please try again.');
+      expect(wrapper.find('.alert.alert-warning').text()).toEqual('There are no results for this term, please try again.');
     });
   });
 
   describe('When Pending is false and there are users returned',() =>{    
     beforeAll(() => {
-      wrapper = mount(
-        <UsersList 
-          fetchUsers={mockFetchUsers} 
-          pending={false} 
-          users={userStubs} 
-          error={null}
-        />
-      );
+      userProps.users = userStubs;
+      wrapper = mount(<UsersList {...userProps} />);
     });
 
     it('should not display the loading spinner', () => {
-      expect(wrapper.find('.spinner-grow')).toBeFalsey;;
+      expect(wrapper.find('.spinner-grow')).toBeFalsey;
     });
 
     it('should not display a list of users', () => {
@@ -93,6 +74,27 @@ describe('UserList component', () => {
 
     it('should not display an error message', () => {
       expect(wrapper.find('.alert')).toBeFalsey;
+    });
+  });
+
+  describe('When an error is returned',() =>{    
+    beforeAll(() => {
+      userProps.error = 'There was a problem';
+      userProps.users=[];
+      wrapper = mount(<UsersList {...userProps} />);
+    });
+
+    it('should not display the loading spinner', () => {
+      expect(wrapper.find('.spinner-grow')).toBeFalsey;
+    });
+
+    it('should not display a list of users', () => {
+      expect(wrapper.find('.card')).toBeFalsey;
+    });
+
+    it('should display an error message', () => {
+      expect(wrapper.find('.alert')).toBeTruthy;
+      expect(wrapper.find('.alert.alert-danger').text()).toEqual('There was a problem');
     });
   });
 });
