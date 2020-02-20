@@ -17,10 +17,10 @@ describe('UserCard', () => {
 
   it('should render a UserCard', () => {
     expect(wrapper.find('.card')).toBeTruthy;
-    expect(wrapper.find('.card-image-top'));
+    expect(wrapper.find('.card-image-top')).toBeTruthy;
     expect(wrapper.find('img').props().src).toEqual(user.avatar_url);
     expect(wrapper.find('.h5').props().children).toEqual(user.login);
-    expect(wrapper.find('.card-link').props().href).toEqual(`/users/${user.login}`);
+    expect(wrapper.find('.card-link').props().href).toEqual(`/user/${user.login}`);
     expect(wrapper.find('.card-link').props().children).toEqual('View')
   });
 });
