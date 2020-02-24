@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';
+import { Row, Alert } from 'react-bootstrap';
 import fetchUser from '../../redux/dispatchers/userDispatcher';
 // import fetchUserActivity from '../../redux/dispatchers/userActivityDispatcher';
 // import fetchUserRepositories from '../../redux/dispatchers/userRepositoriesDispatcher';
@@ -30,14 +31,25 @@ export class User extends Component {
     if (pending !== false) return false;
     return true;
   }
+
+  showUserNotFoundError() {
+    const { pending, user } = this.props;
+    if(!pending && !user) {
+      return (<Alert variant="warning">User could not be found.</Alert>);
+    } 
+  }
   
   render() {
-    const { user } = this.props;
-    
+    const { user, error } = this.props;
+
     return (
-      <div className="main">
-        { !this.shouldComponentRender() ?  <LoadingSpinner /> : user.login }
-      </div>
+      <Row className="justify-content-md-center">
+        {error && <Alert variant="danger">{error}</Alert>}
+        { this.showUserNotFoundError(user) }
+        <Row>
+          { !this.shouldComponentRender() ?  <LoadingSpinner /> : ''}
+        </Row>
+      </Row>
     );
   }
 }
