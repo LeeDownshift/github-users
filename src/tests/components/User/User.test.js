@@ -48,4 +48,21 @@ describe('User Component', () => {
       expect(wrapper.find('.alert.alert-warning').text()).toEqual('User could not be found.');
     });
   });
+
+  describe('When an error is returned',() =>{    
+    beforeAll(() => {
+      userProps.error = 'There was a problem';
+      userProps.user=null;
+      wrapper = mount(<User {...userProps} />);
+    });
+
+    it('should not display the loading spinner', () => {
+      expect(wrapper.find('.spinner-grow')).toBeFalsey;
+    });
+
+    it('should display an error message', () => {
+      expect(wrapper.find('.alert')).toBeTruthy;
+      expect(wrapper.find('.alert.alert-danger').text()).toEqual('There was a problem');
+    });
+  });
 });
