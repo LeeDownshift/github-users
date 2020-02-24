@@ -14,6 +14,14 @@ module.exports = {
     ]
   },
   plugins: [htmlPlugin],
-  node: { fs: "empty" }
+  node: { fs: "empty" },
+  devServer: {
+    stats: "minimal",
+    overlay: true,
+    historyApiFallback: true,
+    disableHostCheck: true,
+    headers: { "Access-Control-Allow-Origin": "*" },
+    https: false
+  },
 };
 
