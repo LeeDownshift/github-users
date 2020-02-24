@@ -1,13 +1,14 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import List from '../../components/List';
-import userStubs from '../stubs/userDataStub';
+import List from '../../../components/Users/List';
+import userStubs from '../../stubs/userDataStub';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('List Component', () => {
   let wrapper;
+  
   describe('No results', () => {
     it('should display a no results message', () => {
       wrapper = shallow(<List users={[]} />).dive();

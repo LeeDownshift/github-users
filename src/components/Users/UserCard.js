@@ -8,7 +8,7 @@ function UserCard({user}) {
       <Card.Img variant="top" src={user.avatar_url} alt={user.login} />
       <Card.Body>
         <Card.Title>{user.login}</Card.Title>
-        <Card.Link href={`/user/${user.login}`}>View</Card.Link>
+        <Card.Link href={`/${user.login}`}>View</Card.Link>
       </Card.Body>
     </Card>
   );

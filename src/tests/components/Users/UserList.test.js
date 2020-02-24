@@ -1,8 +1,8 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { UsersList } from '../../components/UserList';
-import userStubs from '../stubs/userDataStub';
+import { UsersList } from '../../../components/Users/UserList';
+import userStubs from '../../stubs/userDataStub';
 
 Enzyme.configure({ adapter: new Adapter() });
 

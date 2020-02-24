@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Alert, Container, Row } from 'react-bootstrap';
-import fetchUsers from '../redux/dispatchers/usersDispatcher';
-import AppHeader from './AppHeader';
+import { Alert, Row } from 'react-bootstrap';
+import fetchUsers from '../../redux/dispatchers/usersDispatcher';
 import List from './List';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner';
 // import SearchForm from './SearchForm';
 
 export class UsersList extends Component {
@@ -28,11 +27,8 @@ export class UsersList extends Component {
     const { users, error } = this.props;
 
     return ( 
-      <Container fluid>
-        <AppHeader />
-        <Row className="justify-content-md-center">
-          {error && <Alert variant="danger">{error}</Alert>}
-        </Row>
+      <Row className="justify-content-md-center">
+        {error && <Alert variant="danger">{error}</Alert>}
         <Row>
           {/* <SearchForm 
             searchTerm={searchTerm} 
@@ -41,12 +37,12 @@ export class UsersList extends Component {
             handleClear={this.handleClear}
           /> */}
         </Row>
-          {
-          !this.shouldComponentRender() ?  
-            <LoadingSpinner /> : 
-            <List users={users} />
-          }
-      </Container>
+        {
+        !this.shouldComponentRender() ?  
+          <LoadingSpinner /> : 
+          <List users={users} />
+        }
+      </Row>
     );
   }
 }
