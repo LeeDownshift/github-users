@@ -67,7 +67,7 @@ describe('UserList component', () => {
       expect(wrapper.find('.spinner-grow')).toBeFalsey;
     });
 
-    it('should not display a list of users', () => {
+    it('should display a list of users', () => {
       expect(wrapper.find('.card')).toBeTruthy;
       expect(wrapper.find('.card').length).toEqual(2);
     });
