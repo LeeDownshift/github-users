@@ -22,5 +22,5 @@ With regards to the activity stream, for the moment only a few of the 40+ Event 
 TODO: 
 
 * Add Search functionality back in
-* Update components for Single user so that they use react-bootstrap
+* Update components for Single user page so that they use react-bootstrap
 * Setup auth for API calls so that it doesn't hit the API's limits
