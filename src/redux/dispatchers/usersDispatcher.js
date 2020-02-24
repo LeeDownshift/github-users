@@ -1,10 +1,12 @@
-import { fetchUsersPending, fetchUsersSuccess, fetchUsersError } from '../actions/userActions';
+import fetch from 'node-fetch';
+import { 
+  fetchUsersPending, 
+  fetchUsersSuccess, 
+  fetchUsersError,
+} from '../actions/userActions';
+import Config from '../../config';
 
-const url = 'https://api.github.com';
-const usersUrl = `${url}/users`;
-// const userUrl = `${url}/users/id`;
-// const userRepositoryUrl = `${url}/users/id/repos`;
-// const userActivityUrl = `${url}/users/id/events`;
+const usersUrl = `${Config.url}/users`;
 
 const fetchUsers = () => {
   return dispatch => {
@@ -13,7 +15,7 @@ const fetchUsers = () => {
     .then(res => res.json())
     .then(users => {
       if(users.error) throw(users.error);
-      dispatch(fetchUsersSuccess(users));;
+      dispatch(fetchUsersSuccess(users));
       return users;
     })
     .catch(error => {
