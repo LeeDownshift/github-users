@@ -3,15 +3,21 @@ import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { User } from '../../../components/User/User';
 import userStubs from '../../stubs/userDataStub';
+import userActivityStubs from '../../stubs/userActivityStub';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const mockFetchUser = jest.fn();
+const mockFetchUserActivity = jest.fn();
+
 let userProps = {
   error: null,
   user: null,
-  pending: true,
+  pending: false,
+  userActivityPending: false,
+  userActivity: [],
   fetchUser: mockFetchUser,
+  fetchUserActivity: mockFetchUserActivity,
 };
 
 let wrapper;
@@ -25,6 +31,7 @@ describe('User Component', () => {
       user: null,
       pending: true,
       fetchUser: mockFetchUser,
+      fetchUserActivity: mockFetchUserActivity,
     };
   });
 
@@ -32,7 +39,24 @@ describe('User Component', () => {
     beforeEach(() =>  {
       userProps.pending = true;
       wrapper = mount(<User {...userProps}/>);
-     
+    });
+
+    it('should display the loading spinner', () => {
+      spinner = wrapper.find('.spinner-grow');
+      expect(spinner).toBeTruthy;
+      expect(spinner.text()).toEqual('Loading...');
+    });
+
+    it('should not display an error message', () => {
+      alert = wrapper.find('.alert');
+      expect(alert).toBeFalsey;
+    });
+  });
+
+  describe('When UserActivityPending is true', () => {
+    beforeEach(() =>  {
+      userProps.userActivityPending = true;
+      wrapper = mount(<User {...userProps}/>);
     });
 
     it('should display the loading spinner', () => {
@@ -65,9 +89,10 @@ describe('User Component', () => {
     });
   });
 
-  describe('When Pending is false and a user is returned', () => {
+  describe('When Pending and userActivityPending is false and a user is returned', () => {
     beforeEach(() => {
       userProps.user = userStubs[0];
+      userProps.userActivity = userActivityStubs;
       wrapper = mount(<User {...userProps} />);
     });
 
@@ -78,6 +103,10 @@ describe('User Component', () => {
 
     it('should render the UserDetail component', () => {  
       expect(wrapper.find('.jumbotron')).toBeTruthy;
+    });
+
+    it('should render the UserActivity component', () => {  
+      expect(wrapper.find('.activity-list')).toBeTruthy;
     });
   });
 

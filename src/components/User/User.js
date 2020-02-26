@@ -3,29 +3,48 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Alert, Container } from 'react-bootstrap';
 import fetchUser from '../../redux/dispatchers/userDispatcher';
-// import fetchUserActivity from '../../redux/dispatchers/userActivityDispatcher';
+import fetchUserActivity from '../../redux/dispatchers/userActivityDispatcher';
 // import fetchUserRepositories from '../../redux/dispatchers/userRepositoriesDispatcher';
 import LoadingSpinner from '../LoadingSpinner';
 import UserDetail from './UserDetail';
-import UserActivities from './UserActivities';
+import UserActivities from './UserActivity';
 import UserRepositories from './UserRepositories';
 
 export class User extends Component {
   constructor(props) {
     super(props);
-    this.shouldComponentRender = this.shouldComponentRender.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchUser(this.props.slug);
-    // this.props.fetchUserActivity(this.props.slug);
+    this.props.fetchUserActivity(this.props.slug);
     // this.props.fetchUserRepositories(this.props.slug);
   }
 
-  shouldComponentRender() {
+  userDataLoaded() {
+    if (this.props.user !== null) return true;
+    return false;
+  }
+
+  userActivityDataLoaded() {
+    if (this.props.userActivity !== null) return true;
+    return false;
+  }
+
+  userDataPending() {
+    let userLoaded = false;
     const { pending } = this.props;
-    if (pending !== false) return false;
-    return true;
+    if (pending === undefined || pending && !this.userDataLoaded()) userLoaded = false;
+    if (pending === false && this.userDataLoaded()) userLoaded = true;
+    return userLoaded;
+  }
+
+  userActivityDataPending() {
+    let userActivityLoaded = false;
+    const { userActivityPending } = this.props;
+    if (userActivityPending === undefined || userActivityPending && !this.userDataLoaded()) userActivityLoaded = false;
+    if (userActivityPending === false && this.userDataLoaded()) userActivityLoaded = true;
+    return userActivityLoaded;
   }
 
   showUserNotFoundError() {
@@ -35,25 +54,25 @@ export class User extends Component {
     } 
   }
 
-  renderComponent() {
-    if(!this.shouldComponentRender() && this.props.user === null) {
-      return(<LoadingSpinner />);
-    } else if (this.shouldComponentRender() && this.props.user !== null) {
-      return(<UserDetail user={this.props.user} />);
-    }  else {
-      return null;
-    }
+  renderSpinner() {
+    let spinner;
+    if(!this.userDataLoaded() || !this.userActivityDataLoaded()) {
+      spinner = <LoadingSpinner />;
+    } 
+    return spinner;
   }
   
   render() {
-    const { error } = this.props;
+    const { user, userActivity, error } = this.props;
     return (
       <div>
-        <Row>
-          { error && <Alert variant="danger">{error}</Alert> }
-          { this.showUserNotFoundError() }
+        { error && <Alert variant="danger">{error}</Alert> }
+        { this.showUserNotFoundError() }
+        { this.userDataPending() ? <UserDetail user={user} /> : '' }
+        <Row className="justify-content-md-center" style={{width: '80%', margin: '0 auto'}}>
+          { this.renderSpinner() }
+          { (this.userActivityDataPending()) ? <UserActivities activity={userActivity} /> : ''}
         </Row>
-        { this.renderComponent() }
       </div>
     );
   }
@@ -64,9 +83,9 @@ const mapStateToProps = (state, ownProps) => ({
   error: state.users.error,
   user: state.users.user,
   pending: state.users.pending,
-  // userActivityPending: state.userActivity.pending,
-  // userActivity: state.userActivity.userActivity,
-  // userActivityError: state.userActivity.error,
+  userActivityPending: state.userActivity.pending,
+  userActivity: state.userActivity.userActivity,
+  userActivityError: state.userActivity.error,
   // userRepositoriesPending: state.userRepositories.pending,
   // userRepositories: state.userRepositories.userRepositories,
   // userRepositoriesError: state.userRepositories.error,
@@ -74,7 +93,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({ 
   fetchUser, 
-  // fetchUserActivity,
+  fetchUserActivity,
   // fetchUserRepositories
 }, dispatch);
 
