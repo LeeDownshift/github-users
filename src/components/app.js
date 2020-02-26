@@ -11,14 +11,14 @@ import PageNotFound from './PageNotFound';
 
 function App() {
   return (
-    <Container fluid>
+    <div>
       <AppHeader />
       <Switch>
         <Route exact path="/" component={UserList} />
         <Route path="/:slug" component={User} />
         <Route component={PageNotFound} />
       </Switch>
-    </Container>
+    </div>
   );
 }
 
