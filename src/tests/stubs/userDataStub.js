@@ -17,7 +17,12 @@ const userStubs = [
     "events_url": "https://api.github.com/users/testUser1/events{/privacy}",
     "received_events_url": "https://api.github.com/users/testUser1/received_events",
     "type": "User",
-    "site_admin": false
+    "site_admin": false,
+    "name": "test user 1",
+    "blog": "https://test.com",
+    "followers": 13,
+    "following": 345,
+    "location": "Yorkshire"
   },
   {
     "login": "testUser2",
@@ -37,7 +42,12 @@ const userStubs = [
     "events_url": "https://api.github.com/users/testUser2/events{/privacy}",
     "received_events_url": "https://api.github.com/users/testUser2/received_events",
     "type": "User",
-    "site_admin": false
+    "site_admin": false,
+    "name": "test user 2",
+    "blog": "https://test.co",
+    "followers": 12,
+    "following": 123,
+    "location": "A place"
   }
 ]
 
