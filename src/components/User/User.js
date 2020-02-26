@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';
-import { Row, Alert } from 'react-bootstrap';
+import { Row, Alert, Container } from 'react-bootstrap';
 import fetchUser from '../../redux/dispatchers/userDispatcher';
 // import fetchUserActivity from '../../redux/dispatchers/userActivityDispatcher';
 // import fetchUserRepositories from '../../redux/dispatchers/userRepositoriesDispatcher';
 import LoadingSpinner from '../LoadingSpinner';
+import UserDetail from './UserDetail';
 import UserActivities from './UserActivities';
 import UserRepositories from './UserRepositories';
 
@@ -22,12 +23,7 @@ export class User extends Component {
   }
 
   shouldComponentRender() {
-    const { 
-      pending, 
-      // userActivityPending, 
-      // userRepositoriesPending 
-    } = this.props;
-
+    const { pending } = this.props;
     if (pending !== false) return false;
     return true;
   }
@@ -38,18 +34,27 @@ export class User extends Component {
       return (<Alert variant="warning">User could not be found.</Alert>);
     } 
   }
+
+  renderComponent() {
+    if(!this.shouldComponentRender() && this.props.user === null) {
+      return(<LoadingSpinner />);
+    } else if (this.shouldComponentRender() && this.props.user !== null) {
+      return(<UserDetail user={this.props.user} />);
+    }  else {
+      return null;
+    }
+  }
   
   render() {
-    const { user, error } = this.props;
-
+    const { error } = this.props;
     return (
-      <Row className="justify-content-md-center">
-        {error && <Alert variant="danger">{error}</Alert>}
-        { this.showUserNotFoundError(user) }
+      <div>
         <Row>
-          { !this.shouldComponentRender() ?  <LoadingSpinner /> : ''}
+          { error && <Alert variant="danger">{error}</Alert> }
+          { this.showUserNotFoundError() }
         </Row>
-      </Row>
+        { this.renderComponent() }
+      </div>
     );
   }
 }
