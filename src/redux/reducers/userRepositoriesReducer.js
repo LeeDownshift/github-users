@@ -22,4 +22,5 @@ const userRepositoriesReducer = (state=[], action) => {
     }
   }
   
-  export default userActivityReducer;
+  export default userRepositoriesReducer;
+  
