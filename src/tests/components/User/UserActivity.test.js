@@ -25,6 +25,6 @@ describe('UserActivity Component', () => {
   it('should have a list of items', () => {
     const listGroup = wrapper.find('div.list-group');
     expect(listGroup).toBeTruthy;
-    expect(listGroup.children().length).toEqual(3);
+    expect(listGroup.children().length).toEqual(7);
   });
 });
