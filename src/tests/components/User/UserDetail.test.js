@@ -18,24 +18,24 @@ describe('UserDetail Component', () => {
   });
 
   it('should render a jumbotron', () => {
-    expect(jumbotron).toBeTruthy;
+    expect(jumbotron).toBeTruthy();
   });
 
   it('should render the users avatar image', () => {
     const avatar = jumbotron.find('img.rounded');
-    expect(avatar).toBeTruthy;
+    expect(avatar).toBeTruthy();
     expect(avatar.prop('src')).toEqual(user.avatar_url);
   });
 
   it('should render a header tag with the users name', () => {
     const header = jumbotron.find('h1');
-    expect(header).toBeTruthy;
+    expect(header).toBeTruthy();
     expect(header.text()).toEqual(`${user.name} (${user.login})`);
   });
 
   it('should render an unordered list displayin the users details', () => {
     const infoList = jumbotron.find('ul');
-    expect(infoList).toBeTruthy;
+    expect(infoList).toBeTruthy();
     expect(infoList.children().length).toEqual(4);
   
     infoList.children().forEach((item, i) => {

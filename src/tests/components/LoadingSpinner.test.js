@@ -10,8 +10,8 @@ describe('LoadingSpinner Component', () => {
 
   it('Should display a spinner', () => {
     wrapper = shallow(<LoadingSpinner />).dive();
-    expect(wrapper.find('.top-margin')).toBeTruthy;
-    expect(wrapper.find('.spinner-grow')).toBeTruthy;
+    expect(wrapper.find('.top-margin')).toBeTruthy();
+    expect(wrapper.find('.spinner-grow')).toBeTruthy();
     expect(wrapper.find('.sr-only').text()).toEqual('Loading...');
   });
 });

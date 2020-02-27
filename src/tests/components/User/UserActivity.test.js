@@ -14,17 +14,17 @@ describe('UserActivity Component', () => {
   });
 
   it('should render the component', () => {
-    expect(wrapper.find('.activity-list')).toBeTruthy;
+    expect(wrapper.find('.activity-list')).toBeTruthy();
   });
 
   it('should have a header', () => {
-    expect(wrapper.find('h2')).toBeTruthy;
+    expect(wrapper.find('h2')).toBeTruthy();
     expect(wrapper.find('h2').text()).toEqual('Recent Activity:');
   });
 
   it('should have a list of items', () => {
     const listGroup = wrapper.find('div.list-group');
-    expect(listGroup).toBeTruthy;
+    expect(listGroup).toBeTruthy();
     expect(listGroup.children().length).toEqual(7);
   });
 });

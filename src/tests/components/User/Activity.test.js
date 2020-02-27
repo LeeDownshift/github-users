@@ -16,7 +16,7 @@ describe('Activity Component', () => {
   });
 
   it('should render', () => {
-    expect(wrapper.find('.list-group-item')).toBeTruthy;
+    expect(wrapper.find('.list-group-item')).toBeTruthy();
   });
 
   it('should contain a date', () => {

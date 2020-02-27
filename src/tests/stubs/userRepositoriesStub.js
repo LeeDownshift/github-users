@@ -1,7 +1,7 @@
 const userRepositoriesStubs = [
   [
     {
-      "id": 26899533,
+      "id": 1,
       "node_id": "MDEwOlJlcG9zaXRvcnkyNjg5OTUzMw==",
       "name": "30daysoflaptops.github.io",
       "full_name": "testUser1/30daysoflaptops.github.io",
@@ -95,7 +95,7 @@ const userRepositoriesStubs = [
       "default_branch": "gh-pages"
     },
     {
-      "id": 17358646,
+      "id": 2,
       "node_id": "MDEwOlJlcG9zaXRvcnkxNzM1ODY0Ng==",
       "name": "asteroids",
       "full_name": "testUser1/asteroids",
@@ -195,7 +195,7 @@ const userRepositoriesStubs = [
       "default_branch": "master"
     },
     {
-      "id": 29941343,
+      "id": 3,
       "node_id": "MDEwOlJlcG9zaXRvcnkyOTk0MTM0Mw==",
       "name": "benbalter.github.com",
       "full_name": "testUser1/benbalter.github.com",
@@ -289,7 +289,7 @@ const userRepositoriesStubs = [
       "default_branch": "master"
     },
     {
-      "id": 330651,
+      "id": 4,
       "node_id": "MDEwOlJlcG9zaXRvcnkzMzA2NTE=",
       "name": "bert",
       "full_name": "testUser1/bert",
