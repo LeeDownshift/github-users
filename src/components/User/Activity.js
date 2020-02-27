@@ -1,12 +1,8 @@
 import React from 'react';
-import moment from 'moment';
+import { formattedDateTime } from '../../helpers/DateTimeHelper';
+import { ListGroup } from 'react-bootstrap';
 
 function Activity({activity}) {
-  const formattedDate = () => {
-    const parsed = moment(new Date(activity.created_at));
-    return parsed.format('D MMM YYYY');
-  } 
-
   const activityText = () => {
     let text;
     const { repo, payload } = activity;
@@ -39,10 +35,7 @@ function Activity({activity}) {
       case 'PullRequestReviewEvent':
         text = `${payload.action} pull request #${payload.number} on ${repo.name}`;
         break;
-      case 'ReleaseEvent':
-        text = `${payload.action} release on ${repo.name}`;
-        break;
-      case 'WatchEvent':
+     case 'WatchEvent':
         text = `${payload.action} watching ${repo.name}`;
         break;
       default:
@@ -55,10 +48,10 @@ function Activity({activity}) {
   }
 
   return (
-    <li className="list-group-item">
-      <strong>{formattedDate()}:</strong> 
+    <ListGroup.Item>
+      <h6>{formattedDateTime(activity.created_at)}:</h6> 
       <p>{activityText()}</p>
-    </li>
+    </ListGroup.Item>
   );
 }
 
