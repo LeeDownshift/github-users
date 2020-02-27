@@ -1,5 +1,4 @@
 const userRepositoriesStubs = [
-  [
     {
       "id": 1,
       "node_id": "MDEwOlJlcG9zaXRvcnkyNjg5OTUzMw==",
@@ -388,7 +387,6 @@ const userRepositoriesStubs = [
       "watchers": 196,
       "default_branch": "master"
     }
-  ]
 ]
 
 export default userRepositoriesStubs;
