@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Alert, Row } from 'react-bootstrap';
+import { Alert, Row, Container } from 'react-bootstrap';
 import fetchUsers from '../../redux/dispatchers/usersDispatcher';
 import List from './List';
 import LoadingSpinner from '../LoadingSpinner';
@@ -27,22 +27,24 @@ export class UsersList extends Component {
     const { users, error } = this.props;
 
     return ( 
-      <Row className="justify-content-md-center">
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Row>
-          {/* <SearchForm 
-            searchTerm={searchTerm} 
-            handleKeyPress={this.handleKeyPress}
-            handleClick={this.handleClick}
-            handleClear={this.handleClear}
-          /> */}
+      <Container fluid>
+        <Row className="justify-content-md-center">
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Row>
+            {/* <SearchForm 
+              searchTerm={searchTerm} 
+              handleKeyPress={this.handleKeyPress}
+              handleClick={this.handleClick}
+              handleClear={this.handleClear}
+            /> */}
+          </Row>
+          {
+          !this.shouldComponentRender() ?  
+            <LoadingSpinner /> : 
+            <List users={users} />
+          }
         </Row>
-        {
-        !this.shouldComponentRender() ?  
-          <LoadingSpinner /> : 
-          <List users={users} />
-        }
-      </Row>
+      </Container>
     );
   }
 }
