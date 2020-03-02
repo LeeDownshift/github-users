@@ -23,5 +23,13 @@ module.exports = {
     headers: { "Access-Control-Allow-Origin": "*" },
     https: false
   },
+  entry: [
+    './src/index.js'
+  ],
+  output: {
+    path: __dirname,
+    publicPath: '/',
+    filename: 'bundle.js'
+  }
 };
 
