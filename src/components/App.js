@@ -7,6 +7,7 @@ import { Container } from 'react-bootstrap';
 import AppHeader from './AppHeader';
 import UserList from './Users/UserList';
 import User from './User/User';
+import UserSearch from './UserSearch/UserSearch';
 import PageNotFound from './PageNotFound';
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
       <AppHeader />
       <Switch>
         <Route exact path="/" component={UserList} />
-        <Route path="/:slug" component={User} />
+        <Route path="/search" component={UserSearch} />
+        <Route path="/:slug" component={User} /> 
         <Route component={PageNotFound} />
       </Switch>
     </div>
