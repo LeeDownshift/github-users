@@ -14,7 +14,6 @@ function App() {
       <AppHeader />
       <Switch>
         <Route exact path="/" component={UserList} />
-        <Route path="/search" component={UserSearch} />
         <Route path="/:slug" component={User} /> 
       </Switch>
     </div>
