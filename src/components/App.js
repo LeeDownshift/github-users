@@ -7,7 +7,6 @@ import { Container } from 'react-bootstrap';
 import AppHeader from './AppHeader';
 import UserList from './Users/UserList';
 import User from './User/User';
-import UserSearch from './UserSearch/UserSearch';
 
 function App() {
   return (
