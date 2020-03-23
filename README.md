@@ -14,7 +14,9 @@ There are some tests in this project but not as many as I would have liked due t
 
 With regards to the activity stream, for the moment only a few of the 40+ Event Types have been covered, but can be extended to cover more with more time.
 
-To view a running version of the application go to this link: [https://quiet-reef-28955.herokuapp.com/](https://quiet-reef-28955.herokuapp.com/)
+To view a running version of the application go to this link: 
+[https://quiet-reef-28955.herokuapp.com/](https://quiet-reef-28955.herokuapp.com/)
+
 =====================================  
 
 TODO: 
